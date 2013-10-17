@@ -15,7 +15,11 @@
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (weak) IBOutlet NSTextField *nameField;
+@property (weak) IBOutlet NSScrollView *showField;
+
 
 - (IBAction)saveAction:(id)sender;
+- (IBAction)buttonClicked:(id)sender;
 
 @end

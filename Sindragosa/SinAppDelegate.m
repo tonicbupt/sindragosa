@@ -134,6 +134,27 @@
     }
 }
 
+- (IBAction)buttonClicked:(id)sender {
+    
+    NSString *name = self.nameField.stringValue;
+    NSString *url = [[NSString alloc] initWithFormat:@"http://api.douban.com/v2/user/%@", name];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:url]];
+    [request setHTTPMethod:@"GET"];
+    NSData *returnData = [NSURLConnection sendSynchronousRequest:request
+                                               returningResponse:nil error:nil];
+    
+    NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:returnData options:0 error:nil];
+    NSString *res = @"Result:\n";
+    for (NSString *key in [jsonObject allKeys]) {
+        res = [res stringByAppendingString:[NSString stringWithFormat:@"%@: %@", key, [jsonObject valueForKey:key]]];
+    }
+    
+    NSTextView *textView = [self.showField documentView];
+    [textView setString:res];
+}
+
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
     // Save changes in the application's managed object context before the application terminates.
